@@ -1,0 +1,95 @@
+buildscript {
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath group: 'org.jooq', name: 'jooq', version: '3.13.4'
+        classpath group: 'org.jooq', name: 'jooq-meta', version: '3.13.4'
+        classpath group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
+        classpath group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
+        classpath group: 'org.apache.ibatis', name: 'ibatis-core', version: '3.0'
+    }
+}
+
+plugins {
+    id "java"
+}
+
+//mainClassName = "LimeHRM"
+
+group "org.techforgoodinc"
+version "0.1-ALPHA"
+
+apply from: 'db.gradle'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Javalin (Web Framework) https://mvnrepository.com/artifact/io.javalin/javalin
+    implementation group: 'io.javalin', name: 'javalin', version: '3.9.1'
+
+    // Javalin OpenAPI (Documenting APIs) https://mvnrepository.com/artifact/io.javalin/javalin-openapi
+    implementation group: 'io.javalin', name: 'javalin-openapi', version: '3.10.0'
+
+    // JWT for Authentication https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    // Json for JSON manipulation https://mvnrepository.com/artifact/org.json/json
+    implementation group: 'org.json', name: 'json', version: '20200518'
+    
+    // TODO: Do I need this?
+    // GSON for JSON manipulation https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+
+    // TODO: Do I need this?
+    // Jaxb API (Missing - Caused Error) https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
+
+    // Object Mapping (Mainly for jOOQ POJO -> Record) https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+
+    // https://mvnrepository.com/artifact/org.modelmapper.extensions/modelmapper-gson
+    implementation group: 'org.modelmapper.extensions', name: 'modelmapper-gson', version: '2.3.8'
+
+    // PostgreSQL JDBC Driver (Connection to Database) https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
+    
+    // Ibatis: Run SQL Script https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core
+    implementation group: 'org.apache.ibatis', name: 'ibatis-core', version: '3.0'
+
+    
+    // --- jOOQ Stuff: ---
+    
+    // jOOQ (Working w/ Databases) https://mvnrepository.com/artifact/org.jooq/jooq
+    implementation group: 'org.jooq', name: 'jooq', version: '3.13.4'
+//    implementation group: 'org.jooq', name: 'jooq', version: '3.13.4'
+
+    // https://mvnrepository.com/artifact/org.jooq/jooq-codegen
+    implementation group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
+//    implementation group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
+
+    // https://mvnrepository.com/artifact/org.jooq/jooq-meta
+    implementation group: 'org.jooq', name: 'jooq-meta', version: '3.13.4'
+
+
+    // --- Logging Libraries: ---
+
+    // Slf4J API https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j18-impl
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j18-impl', version: '2.13.3'
+
+    // Log4J Core https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
+
+    // Log4J API https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
+}
+
+
+
