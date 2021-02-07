@@ -5,30 +5,30 @@ create schema limehrm;
 /* create custom types */
 
 /* TODO: Fix Later */
-drop type if exists limehrm.address;
-create type limehrm.address as (
-    street_name text,
-    apartment_or_unit_number text,
-    city text,
-    state text,
-    zip text,
-    country text
-);
+-- drop type if exists limehrm.address;
+-- create type limehrm.address as (
+--     street_name text,
+--     apartment_or_unit_number text,
+--     city text,
+--     state text,
+--     zip text,
+--     country text
+-- );
 
-create type limehrm.sex as enum ('male', 'female', 'other');
+create type limehrm.sex as enum ('MALE', 'FEMALE', 'OTHER');
 
-create type limehrm.marital_status as enum ('single', 'married');
+create type limehrm.marital_status as enum ('SINGLE', 'MARRIED');
 
-create type limehrm.job_status as enum ('ongoing', 'terminated', 'completed');
+create type limehrm.job_status as enum ('ONGOING', 'TERMINATED', 'COMPLETED');
 
 create table limehrm.worker (
-    id int not null,
+    id text not null,
     first_name text,
     last_name text,
     personal_email text,
     home_phone text,
     mobile_phone text,
-    home_address limehrm.address,
+    home_address jsonb,
     sex limehrm.sex,
     marital_status limehrm.marital_status,
     position_name text,

@@ -24,7 +24,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Application {
     
-    public static void main(String[] args) throws NoSuchAlgorithmException, SQLException {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
         LoggerUtil logger = LoggerUtil.getLogger("Application");
         
         // TODO: Convert HomePhone to PersonalPhone
@@ -39,7 +39,6 @@ public class Application {
             config.defaultContentType = "application/json";
             config.accessManager((handler, ctx, permittedRoles) -> {
                 String authHeader = ctx.header("Authorization");
-    
                 // TODO: FIX
                 if (ctx.url().endsWith("/api/authentication/getToken") || !ctx.url().contains("/api/")) {
                     handler.handle(ctx);
@@ -84,7 +83,7 @@ public class Application {
         
         // URL Mappings
         app.get("/", ctx -> ctx.result("Hello World"));
-        new UrlMappings(app, keyPair, DatabaseConnector.dbUtil);
+        new UrlMappings(app, keyPair);
     }
     
     private static OpenApiPlugin getConfiguredOpenApiPlugin() {

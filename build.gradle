@@ -1,34 +1,35 @@
-buildscript {
-
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath group: 'org.jooq', name: 'jooq', version: '3.13.4'
-        classpath group: 'org.jooq', name: 'jooq-meta', version: '3.13.4'
-        classpath group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
-        classpath group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
-        classpath group: 'org.apache.ibatis', name: 'ibatis-core', version: '3.0'
-    }
-}
-
 plugins {
     id "java"
 }
 
-//mainClassName = "LimeHRM"
-
 group "org.techforgoodinc"
-version "0.1-ALPHA"
-
-apply from: 'db.gradle'
+version "0.2-ALPHA"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // --- DB Stuff: ---
+
+    // PostgreSQL JDBC Driver (Connection to Database): https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
+
+    // GSON: https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+
+    // Hibernate: https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.27.Final'
+
+    // Hibernate Persistence: https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+    implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
+
+    // Hibernate Types: https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52
+    implementation group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.10.2'
+
+
+
+    // --- Web Stuff: ---
     // Javalin (Web Framework) https://mvnrepository.com/artifact/io.javalin/javalin
     implementation group: 'io.javalin', name: 'javalin', version: '3.9.1'
 
@@ -40,40 +41,6 @@ dependencies {
 
     // Json for JSON manipulation https://mvnrepository.com/artifact/org.json/json
     implementation group: 'org.json', name: 'json', version: '20200518'
-    
-    // TODO: Do I need this?
-    // GSON for JSON manipulation https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
-
-    // TODO: Do I need this?
-    // Jaxb API (Missing - Caused Error) https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
-    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
-
-    // Object Mapping (Mainly for jOOQ POJO -> Record) https://mvnrepository.com/artifact/org.modelmapper/modelmapper
-    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
-
-    // https://mvnrepository.com/artifact/org.modelmapper.extensions/modelmapper-gson
-    implementation group: 'org.modelmapper.extensions', name: 'modelmapper-gson', version: '2.3.8'
-
-    // PostgreSQL JDBC Driver (Connection to Database) https://mvnrepository.com/artifact/org.postgresql/postgresql
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
-    
-    // Ibatis: Run SQL Script https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core
-    implementation group: 'org.apache.ibatis', name: 'ibatis-core', version: '3.0'
-
-    
-    // --- jOOQ Stuff: ---
-    
-    // jOOQ (Working w/ Databases) https://mvnrepository.com/artifact/org.jooq/jooq
-    implementation group: 'org.jooq', name: 'jooq', version: '3.13.4'
-//    implementation group: 'org.jooq', name: 'jooq', version: '3.13.4'
-
-    // https://mvnrepository.com/artifact/org.jooq/jooq-codegen
-    implementation group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
-//    implementation group: 'org.jooq', name: 'jooq-codegen', version: '3.13.4'
-
-    // https://mvnrepository.com/artifact/org.jooq/jooq-meta
-    implementation group: 'org.jooq', name: 'jooq-meta', version: '3.13.4'
 
 
     // --- Logging Libraries: ---
@@ -89,6 +56,7 @@ dependencies {
 
     // Log4J API https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
+
 }
 
 

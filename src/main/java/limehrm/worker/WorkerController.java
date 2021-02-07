@@ -4,10 +4,10 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.plugin.openapi.annotations.*;
 import limehrm.ErrorResponse;
+import limehrm.exceptions.JsonDeserializationException;
+import limehrm.hibernate.model.Worker;
 import limehrm.responses.DeleteResponse;
 import limehrm.responses.SavedResponse;
-import limehrm.exceptions.JsonDeserializationException;
-import limehrm.tables.pojos.Worker;
 import limehrm.util.LoggerUtil;
 
 public class WorkerController {
@@ -25,16 +25,16 @@ public class WorkerController {
             responses = {
                     @OpenApiResponse(status = "200", content = {@OpenApiContent(from = SavedResponse.class)}),
                     @OpenApiResponse(status = "400", content = {@OpenApiContent(from = ErrorResponse.class)})
-            }       
+            }
     )
     public static void create(Context ctx) {
         logger.logDebug("POST: worker");
-        
+
         Worker worker = getWorkerFromCtx(ctx);
-        
+
         WorkerService.save(worker);
-    
-        ctx.header("Location", String.format("%s/api/workers/%d", ctx.host(), worker.getId()));
+
+        ctx.header("Location", String.format("%s/api/workers/%s", ctx.host(), worker.getId()));
         ctx.status(201).json(new SavedResponse());
     }
     
@@ -86,10 +86,10 @@ public class WorkerController {
     )
     public static void update(Context ctx) {
         logger.logDebug("PATCH: workers/:workerId");
-        
+
         Worker worker = getWorkerFromCtx(ctx);
         worker.setId(getPathParamUserId(ctx));
-        
+
         WorkerService.update(worker);
         ctx.status(200).json(new SavedResponse());
     }
@@ -112,8 +112,8 @@ public class WorkerController {
         ctx.status(200).json(new DeleteResponse());
     }
     
-    private static int getPathParamUserId(Context ctx) {
-        return ctx.pathParam("workerId", Integer.class).check(id -> id > 0).get();
+    private static String getPathParamUserId(Context ctx) {
+        return ctx.pathParam("workerId", String.class).get();
     }
     
     private static Worker getWorkerFromCtx(Context ctx) {
@@ -124,7 +124,7 @@ public class WorkerController {
         } catch (BadRequestResponse badRequest) {
             throw new JsonDeserializationException();
         }
-        
+
         return worker;
     }
 }
