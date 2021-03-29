@@ -5,9 +5,11 @@ import limehrm.hibernate.util.HibernateUtil;
 import limehrm.util.LoggerUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +32,7 @@ public class WorkerDao {
     
         session.getTransaction().commit();
     
-        session.close();
+        HibernateUtil.close();
     }
     
     public static void updateWorker(Worker worker) {
@@ -41,8 +43,8 @@ public class WorkerDao {
         session.update(worker);
         
         session.getTransaction().commit();
-        
-        session.close();
+    
+        HibernateUtil.close();
     }
     
     public static Worker getWorker(String id) {
@@ -54,13 +56,13 @@ public class WorkerDao {
     
         session.getTransaction().commit();
     
-        session.close();
+        HibernateUtil.close();
         
         return worker;
     }
     
     public static List<Worker> getAllWorkers() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     
         session.beginTransaction();
     
@@ -71,8 +73,8 @@ public class WorkerDao {
         List<Worker> workers = session.createQuery(criteria).getResultList();
         
         session.getTransaction().commit();
-    
-        session.close();
+        
+        HibernateUtil.close();
         
         return workers;
     }
@@ -88,6 +90,27 @@ public class WorkerDao {
     
         session.getTransaction().commit();
     
-        session.close();
+        HibernateUtil.close();
+    }
+    
+    public static Worker getWorkerFromEmail(String email) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+    
+        session.beginTransaction();
+        
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+    
+        CriteriaQuery<Worker> criteriaQuery = criteriaBuilder.createQuery(Worker.class);
+    
+        Root<Worker> root = criteriaQuery.from(Worker.class);
+        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("email"), email));
+    
+        List<Worker> workers = session.createQuery(criteriaQuery).getResultList();
+    
+        session.getTransaction().commit();
+    
+        HibernateUtil.close();
+    
+        return workers.get(0);
     }
 }

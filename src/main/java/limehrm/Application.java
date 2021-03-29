@@ -24,7 +24,7 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Application {
     
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
         LoggerUtil logger = LoggerUtil.getLogger("Application");
         
         // TODO: Convert HomePhone to PersonalPhone
@@ -37,14 +37,16 @@ public class Application {
         Javalin app = Javalin.create(config -> {
             config.registerPlugin(getConfiguredOpenApiPlugin());
             config.defaultContentType = "application/json";
+            config.enableCorsForAllOrigins();
             config.accessManager((handler, ctx, permittedRoles) -> {
+                
                 String authHeader = ctx.header("Authorization");
                 // TODO: FIX
                 if (ctx.url().endsWith("/api/authentication/getToken") || !ctx.url().contains("/api/")) {
                     handler.handle(ctx);
                 } else if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 //                    ctx.status(401).json("No JWT token found in request headers"); // TODO: Make more generic
-                    logger.logError("Authorization Error! authHeader:" + authHeader);
+                    logger.logWarn("Authorization Error! authHeader:" + authHeader);
                     throw new InvalidCredentialsException();
                 } else {
                     String authToken = authHeader.substring(7);
@@ -65,6 +67,8 @@ public class Application {
                     });
                 }); 
             });
+        }).before((ctx) -> {
+            logger.logInfo("{} {}", ctx.method(), ctx.path());
         }).start();
     
         // Configure Jackson object mapper

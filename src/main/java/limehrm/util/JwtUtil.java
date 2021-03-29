@@ -3,7 +3,8 @@ package limehrm.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import limehrm.user.User;
+import limehrm.hibernate.model.User;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.security.*;
 import java.util.Date;
@@ -16,11 +17,19 @@ public class JwtUtil {
      *
      * @return KeyPair object containing public and private key.
      */
-    public static KeyPair generateKeyPair() throws NoSuchAlgorithmException {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+    public static KeyPair generateKeyPair() {
+        KeyPairGenerator keyPairGenerator = null;
         
-        keyPairGenerator.initialize(1024);
-        
+        try {
+             keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+    
+            keyPairGenerator.initialize(1024);
+    
+        } catch (Exception ignored) {
+            
+        }
+    
+        assert keyPairGenerator != null;
         return keyPairGenerator.generateKeyPair();
     }
     
@@ -38,8 +47,8 @@ public class JwtUtil {
                 .getBody();
         
         User u = new User();
-        u.setUsername(body.getSubject());
-        u.setId(Integer.parseInt(String.valueOf(body.get("userId"))));
+        u.setEmail(body.getSubject());
+        u.setId(String.valueOf(body.get("userId")));
         
         return u;
     }
@@ -52,7 +61,7 @@ public class JwtUtil {
      * @return the JWT token
      */
     public static String generateToken(User user, PrivateKey privateKey) {
-        Claims claims = Jwts.claims().setSubject(user.getUsername());
+        Claims claims = Jwts.claims().setSubject(user.getEmail());
         claims.put("userId", user.getId());
         
         return Jwts.builder()

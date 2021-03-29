@@ -18,14 +18,18 @@ public class HibernateUtil {
                     .configure()
                     .addAnnotatedClass(Worker.class);
     
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
+//            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+//                    .applySettings(configuration.getProperties()).build();
     
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return sessionFactory;
+    }
+    
+    public static void close() {
+        sessionFactory.close();
     }
     
 }

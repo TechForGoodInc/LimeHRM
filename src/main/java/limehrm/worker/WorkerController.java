@@ -50,6 +50,7 @@ public class WorkerController {
     )
     public static void getAll(Context ctx) {
         logger.logDebug("GET: worker");
+        
         ctx.status(200).json(WorkerService.getAll());
     }
     

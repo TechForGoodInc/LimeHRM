@@ -2,7 +2,7 @@
 <Configuration status="INFO">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout disableAnsi="false" pattern="%style{[%d{dd MMM yyyy HH:mm:ss,SSS}]}{bright,black} %highlight{%-7level}{INFO=bright green, ERROR=bright red, DEBUG=bright blue}%style{[%logger{36}]}{bright,blue} - %msg%n"/>
+            <PatternLayout disableAnsi="false" pattern="%style{[%d{dd MMM yyyy HH:mm:ss,SSS}]}{bright,grey} %highlight{%-7level}{INFO=bright green, ERROR=bright red, DEBUG=bright blue}%style{[%logger{36}]}{bright,blue} - %msg%n"/>
         </Console>
     </Appenders>
     <Loggers>
