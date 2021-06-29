@@ -27,6 +27,10 @@
         <property name="hibernate.generate_statistics">
             true
         </property>
+        
+        <property name="hibernate.generate_statistics">
+            true
+        </property>
 
         <property name="hibernate.current_session_context_class">
             thread
