@@ -1,5 +1,6 @@
 package limehrm.hibernate.util;
 
+import limehrm.hibernate.model.User;
 import limehrm.hibernate.model.Worker;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.cfgxml.spi.LoadedConfig;
@@ -16,16 +17,21 @@ public class HibernateUtil {
         try {
             Configuration configuration = new Configuration()
                     .configure()
-                    .addAnnotatedClass(Worker.class);
+                    .addAnnotatedClass(Worker.class)
+                    .addAnnotatedClass(User.class);
     
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
+//            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+//                    .applySettings(configuration.getProperties()).build();
     
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+            sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return sessionFactory;
+    }
+    
+    public static void close() {
+        sessionFactory.close();
     }
     
 }

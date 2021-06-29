@@ -12,11 +12,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-
-
-
-
-
 @Entity
 @Table(name = "worker", schema = "limehrm")
 @TypeDefs ({
@@ -89,7 +84,11 @@ public class Worker implements DBItem {
     private String managerEmail;
     
     public Worker() {
+    }
+    
+    public Worker(String id) {
         super();
+        this.id = id;
     }
     
     public Worker(String id, String firstName, String lastName, String personalEmail, String homePhone, String mobilePhone, Address homeAddress, Sex sex, MaritalStatus maritalStatus, String positionName, String teamName, boolean salary, String department, Date birthDate, Date startDate, Date endDate, JobStatus jobStatus, String managerEmail) {
@@ -279,6 +278,6 @@ public class Worker implements DBItem {
     
     @Override
     public Object getPrimaryKey() {
-        return this.personalEmail;
+        return this.id;
     }
 }

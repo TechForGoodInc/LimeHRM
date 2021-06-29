@@ -43,3 +43,14 @@ create table limehrm.worker (
 );
 
 alter table limehrm.worker add primary key(id);
+
+
+create table limehrm.user (
+    email text not null,
+    hashed_password text,
+    id text,
+    google_id text,
+    microsoft_id text
+);
+
+alter table limehrm.user add primary key(email);

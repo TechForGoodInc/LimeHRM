@@ -1,9 +1,24 @@
 plugins {
     id "java"
+    id 'application'
+}
+
+jar {
+    manifest {
+        attributes (
+            'Main-Class': 'limehrm.Application'
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } 
 }
 
 group "org.techforgoodinc"
 version "0.2-ALPHA"
+
+mainClassName = 'limehrm.Application'
 
 repositories {
     mavenCentral()
@@ -21,11 +36,15 @@ dependencies {
     // Hibernate: https://mvnrepository.com/artifact/org.hibernate/hibernate-core
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.27.Final'
 
-    // Hibernate Persistence: https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
-    implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
+//    // Hibernate Persistence: https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api
+//    implementation group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
 
     // Hibernate Types: https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52
     implementation group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '2.10.2'
+
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-hikaricp
+    implementation group: 'org.hibernate', name: 'hibernate-hikaricp', version: '5.4.28.Final'
+
 
 
 
@@ -42,6 +61,10 @@ dependencies {
     // Json for JSON manipulation https://mvnrepository.com/artifact/org.json/json
     implementation group: 'org.json', name: 'json', version: '20200518'
 
+    // Argon2 for Salting Passwords https://mvnrepository.com/artifact/de.mkammerer/argon2-jvm
+    implementation group: 'de.mkammerer', name: 'argon2-jvm', version: '2.10.1'
+
+
 
     // --- Logging Libraries: ---
 
@@ -56,8 +79,6 @@ dependencies {
 
     // Log4J API https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
-
+    
 }
-
-
 

@@ -3,11 +3,8 @@ package limehrm.mappings;
 import io.javalin.Javalin;
 import io.javalin.http.InternalServerErrorResponse;
 import limehrm.ErrorResponse;
-import limehrm.exceptions.InvalidCredentialsException;
-import limehrm.exceptions.JsonDeserializationException;
-import limehrm.exceptions.ResourceNotFoundException;
+import limehrm.exceptions.*;
 import limehrm.util.LoggerUtil;
-import limehrm.exceptions.DuplicateIDsSqlException;
 
 public class ExceptionMappings {
     private static final LoggerUtil logger = new LoggerUtil(ExceptionMappings.class.getSimpleName());
@@ -18,10 +15,13 @@ public class ExceptionMappings {
         this.app = app;
         
         DefaultExceptionMapping();
-        InvalidCredentialsMapping();
+
+        AuthenticationErrorMappings();
+
         InvalidSqlMapping();
         DeserializationErrorMapping();
         NotFoundMapping();
+
     }
     
     private void DefaultExceptionMapping() {
@@ -34,6 +34,12 @@ public class ExceptionMappings {
                    "The application is not working. Please look at the stack trace for more information")); 
         });
     }
+
+    private void AuthenticationErrorMappings() {
+        InvalidCredentialsMapping();
+        InvalidAuthCredentialsMapping();
+        InvalidGrantTypeMapping();
+    }
     
     private void InvalidCredentialsMapping() {
         app.exception(InvalidCredentialsException.class, (e, ctx) -> {
@@ -42,6 +48,26 @@ public class ExceptionMappings {
                     "Please pass in the correct credentials via the Authorization header (Bearer authentication). You can get the token by calling base_url/api/authentication/getToken",
                     "Please pass in the correct credentials to the application",
                     "The server was unable to authenticate your identity. Please provide the application with the correct token."));
+        });
+    }
+    
+    private void InvalidAuthCredentialsMapping() {
+        app.exception(InvalidAuthCredentialsException.class, (e, ctx) -> {
+            logger.logWarn("Invalid Auth Credentials Exception: Invalid Auth Credentials");
+            ctx.status(401).json(new ErrorResponse(401, "Invalid Auth Credentials Exception",
+                    "Please pass in the correct email & password via the Authorization header (Basic base64{clientId:clientSecret})",
+                    "Please pass in the correct credentials to the application",
+                    "The server was unable to authenticate your identity. Please provide the application with the correct email and password."));
+        });
+    }
+
+    private void InvalidGrantTypeMapping() {
+        app.exception(InvalidGrantTypeException.class, (e, ctx) -> {
+            logger.logWarn("Invalid Grant Type Exception: Invalid Grant Type");
+            ctx.status(401).json(new ErrorResponse(401, "Invalid Grant Type Exception",
+                    "Please pass in the correct grant type to the application.",
+                    "Please contact your administrator.",
+                    "The server was unable to determine which authentication method you are using. Please pass in the correct grant type to the application."));
         });
     }
     
@@ -64,7 +90,7 @@ public class ExceptionMappings {
                     "Unable to deserialize JSON. Please check JSON body and pass in valid keys and values"));
         });
     }
-    
+
     private void NotFoundMapping() {
         app.exception(ResourceNotFoundException.class, (e, ctx) -> {
             logger.logWarn("Resource Not Found Exception: Unable to find the resource");
@@ -74,4 +100,6 @@ public class ExceptionMappings {
                     "Program is not able to find the resource, please check the identifier and check if the resource exists"));
         });
     }
+
+
 }

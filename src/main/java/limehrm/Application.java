@@ -10,6 +10,7 @@ import io.javalin.plugin.openapi.ui.ReDocOptions;
 import io.javalin.plugin.openapi.ui.SwaggerOptions;
 import io.swagger.v3.oas.models.info.Info;
 import limehrm.exceptions.InvalidCredentialsException;
+import limehrm.hibernate.model.User;
 import limehrm.mappings.ExceptionMappings;
 import limehrm.mappings.UrlMappings;
 import limehrm.util.JwtUtil;
@@ -37,19 +38,19 @@ public class Application {
         Javalin app = Javalin.create(config -> {
             config.registerPlugin(getConfiguredOpenApiPlugin());
             config.defaultContentType = "application/json";
+            config.enableCorsForAllOrigins();
             config.accessManager((handler, ctx, permittedRoles) -> {
                 String authHeader = ctx.header("Authorization");
-                // TODO: FIX
+                // TODO: FIX EndsWith (not secure?)
                 if (ctx.url().endsWith("/api/authentication/getToken") || !ctx.url().contains("/api/")) {
                     handler.handle(ctx);
-                } else if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//                    ctx.status(401).json("No JWT token found in request headers"); // TODO: Make more generic
-                    logger.logError("Authorization Error! authHeader:" + authHeader);
+                }
+                else if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                    logger.logWarn("Authorization Error! authHeader:" + authHeader);
                     throw new InvalidCredentialsException();
-                } else {
-                    String authToken = authHeader.substring(7);
-        
-                    JwtUtil.parseToken(authToken, keyPair.getPublic());
+                }
+                else {
+                    User authenticatedUser = JwtUtil.parseToken(authHeader.substring(7), keyPair.getPublic());
                     handler.handle(ctx);
                 }
             });
@@ -65,6 +66,8 @@ public class Application {
                     });
                 }); 
             });
+        }).before((ctx) -> {
+            logger.logInfo("{} {}", ctx.method(), ctx.path());
         }).start();
     
         // Configure Jackson object mapper

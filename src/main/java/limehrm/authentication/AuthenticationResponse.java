@@ -1,9 +1,11 @@
 package limehrm.authentication;
 
-public class Authentication {
+public class AuthenticationResponse {
     private String token;
     
-    public Authentication(String token) {
+    public AuthenticationResponse() {}
+    
+    public AuthenticationResponse(String token) {
         setToken(token);
     }
     
