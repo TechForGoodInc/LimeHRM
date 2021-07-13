@@ -1,7 +1,7 @@
 # LimeHRM
 
 ## Running instructions:
-1. Install Postgres Database & supply credentials to DatabaseConnector.java and db.gradle
-2. Insert authenticationResponse details into AuthenticationController.java
-2. Run Gradle files, generate database, and generate code
-3. Run Application.java
+1. Install Postgres Database
+2. Run create_schema.sql
+3. Supply credentials to hibernate.cfg.xml (hibernate.connection.username, hibernate.connection.password)
+4. Run Application.java
