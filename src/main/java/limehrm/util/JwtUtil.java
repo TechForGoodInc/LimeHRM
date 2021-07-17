@@ -68,7 +68,7 @@ public class JwtUtil {
         claims.put("googleId", user.getGoogleId());
         claims.put("microsoftId", user.getMicrosoftId());
         
-        return new String[]{ Jwts.builder()
+        return Jwts.builder()
                 .setSubject("Authentication")
                 // Expiry in 15 minutes or 900000 ms
                 .setExpiration(new Date(System.currentTimeMillis() + 900000))
