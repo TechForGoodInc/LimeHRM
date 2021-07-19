@@ -16,6 +16,7 @@ import limehrm.mappings.UrlMappings;
 import limehrm.util.JwtUtil;
 import limehrm.util.LoggerUtil;
 import limehrm.worker.WorkerController;
+import limehrm.user.UserController;
 
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -56,6 +57,15 @@ public class Application {
             });
         }).routes(() -> {
             path("api", () -> {
+                path("users", () -> {
+                    get(UserController::getAll);
+                    post(UserController::create);
+                    path(":workerId", () -> {
+                        get(UserController::getOne);
+                        patch(UserController::update);
+                        delete(UserController::delete);
+                    });
+                });
                 path("workers", () -> {
                     get(WorkerController::getAll);
                     post(WorkerController::create);
