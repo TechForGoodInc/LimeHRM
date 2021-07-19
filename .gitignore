@@ -2,3 +2,12 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+
+# IntelliJ Exclude
+/.idea/
+
+# Eclipse Exclude
+/.settings/
+
+# MacOS Exclude
+**.DS_Store
