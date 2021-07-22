@@ -9,10 +9,18 @@ public class AuthenticationPublicKeyResponse {
         setPublicKey(publicKey);
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getPublicKey() {
         return publicKey;
     }
     
+    
+    /** 
+     * @param publicKey
+     */
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }

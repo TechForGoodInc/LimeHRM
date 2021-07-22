@@ -53,26 +53,61 @@ public class LoggerUtil {
         return uuid;
     }
     
+    
+    /** 
+     * @param message
+     * @param args
+     * @return UUID
+     */
     public UUID logTrace(String message, Object... args) {
         return log(LogType.TRACE, message, args);
     }
     
+    
+    /** 
+     * @param message
+     * @param args
+     * @return UUID
+     */
     public UUID logDebug(String message, Object... args) {
         return log(LogType.DEBUG, message, args);
     }
     
+    
+    /** 
+     * @param message
+     * @param args
+     * @return UUID
+     */
     public UUID logInfo(String message, Object... args) {
         return log(LogType.INFO, message, args);
     }
     
+    
+    /** 
+     * @param message
+     * @param args
+     * @return UUID
+     */
     public UUID logWarn(String message, Object... args) {
         return log(LogType.WARN, message, args);
     }
     
+    
+    /** 
+     * @param message
+     * @param args
+     * @return UUID
+     */
     public UUID logError(String message, Object... args) {
         return log(LogType.ERROR, message, args);
     }
     
+    
+    /** 
+     * @param className
+     * @return LoggerUtil
+     */
     public static LoggerUtil getLogger(String className) {
         return new LoggerUtil(className);
     }

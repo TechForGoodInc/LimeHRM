@@ -11,12 +11,15 @@ import io.javalin.plugin.openapi.ui.SwaggerOptions;
 import io.swagger.v3.oas.models.info.Info;
 import limehrm.exceptions.InvalidCredentialsException;
 import limehrm.hibernate.model.User;
+
 import limehrm.mappings.ExceptionMappings;
 import limehrm.mappings.UrlMappings;
 import limehrm.util.JwtUtil;
 import limehrm.util.LoggerUtil;
 import limehrm.worker.WorkerController;
 import limehrm.user.UserController;
+import limehrm.leave.LeaveController;
+import limehrm.recruitment.RecruitmentController;
 
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +29,11 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Application {
     
+    
+    /** 
+     * @param args
+     * @throws NoSuchAlgorithmException
+     */
     public static void main(String[] args) throws NoSuchAlgorithmException {
         LoggerUtil logger = LoggerUtil.getLogger("Application");
         
@@ -57,14 +65,33 @@ public class Application {
             });
         }).routes(() -> {
             path("api", () -> {
+                path("recruitments", () -> {
+                    get(RecruitmentController::getAll);
+                    post(RecruitmentController::create);
+                    path(":recruitmentId", () -> {
+                        get(RecruitmentController::getOne);
+                        patch(RecruitmentController::update);
+                        delete(RecruitmentController::delete);
+                    });
+                });
+                path("leaves", () -> {
+                    get(LeaveController::getAll);
+                    post(LeaveController::create);
+                    path(":leaveId", () -> {
+                        get(LeaveController::getOne);
+                        patch(LeaveController::update);
+                        delete(LeaveController::delete);
+                    });
+                });
                 path("users", () -> {
                     get(UserController::getAll);
                     post(UserController::create);
-                    path(":workerId", () -> {
+                    path(":userId", () -> {
                         get(UserController::getOne);
                         patch(UserController::update);
                         delete(UserController::delete);
                     });
+                   
                 });
                 path("workers", () -> {
                     get(WorkerController::getAll);
@@ -74,7 +101,8 @@ public class Application {
                         patch(WorkerController::update);
                         delete(WorkerController::delete);
                     });
-                }); 
+                });
+                 
             });
         }).before((ctx) -> {
             logger.logInfo("{} {}", ctx.method(), ctx.path());
@@ -99,6 +127,10 @@ public class Application {
         new UrlMappings(app, keyPair);
     }
     
+    
+    /** 
+     * @return OpenApiPlugin
+     */
     private static OpenApiPlugin getConfiguredOpenApiPlugin() {
         Info info = new Info().version("1.0").description("User API");
         OpenApiOptions options = new OpenApiOptions(info)

@@ -13,6 +13,14 @@ import limehrm.util.LoggerUtil;
 public class WorkerController {
     private static LoggerUtil logger = new LoggerUtil(WorkerController.class.getSimpleName());
     
+    
+    /** 
+     * @param worker"
+     * @param "createWorker"
+     * @param "/api/workers"
+     * @param HttpMethod.POST
+     * @param @OpenApiRequestBody(
+     */
     // TODO: https://github.com/tipsy/javalin-openapi-example
     // TODO: https://github.com/tipsy/javalin-openapi-example/blob/master/src/main/java/io/javalin/example/java/user/UserController.java
     @OpenApi(
@@ -71,6 +79,14 @@ public class WorkerController {
         ctx.status(200).json(WorkerService.findById(getPathParamUserId(ctx)));
     }
     
+    
+    /** 
+     * @param ID"
+     * @param "updateWorkerById"
+     * @param "/api/workers/:workerId"
+     * @param HttpMethod.PATCH
+     * @param @OpenApiRequestBody(
+     */
     @OpenApi(
             summary = "Update user by ID",
             operationId = "updateWorkerById",
@@ -113,10 +129,20 @@ public class WorkerController {
         ctx.status(200).json(new DeleteResponse());
     }
     
+    
+    /** 
+     * @param ctx
+     * @return String
+     */
     private static String getPathParamUserId(Context ctx) {
         return ctx.pathParam("workerId", String.class).get();
     }
     
+    
+    /** 
+     * @param ctx
+     * @return Worker
+     */
     private static Worker getWorkerFromCtx(Context ctx) {
         Worker worker;
         try {

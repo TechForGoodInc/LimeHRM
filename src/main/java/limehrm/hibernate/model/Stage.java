@@ -1,0 +1,6 @@
+package limehrm.hibernate.model;
+
+public enum Stage {
+    APPLICATION_RECIEVED, PHONE_SCREENING, REFERENCE_CHECK, JOB_OFFER, HIRED, REJECTED, IN_PERSON_INTERVIEW
+    
+}

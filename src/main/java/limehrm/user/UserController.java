@@ -13,6 +13,14 @@ import limehrm.util.LoggerUtil;
 public class UserController {
     private static LoggerUtil logger = new LoggerUtil(UserController.class.getSimpleName());
 
+    
+    /** 
+     * @param user"
+     * @param "createUser"
+     * @param "/api/users"
+     * @param HttpMethod.POST
+     * @param @OpenApiRequestBody(
+     */
     @OpenApi(
             summary = "Create user",
             operationId = "createUser",
@@ -69,6 +77,14 @@ public class UserController {
         ctx.status(200).json(UserService.findById(getPathParamUserId(ctx)));
     }
     
+    
+    /** 
+     * @param ID"
+     * @param "updateUserById"
+     * @param "/api/users/:userId"
+     * @param HttpMethod.PATCH
+     * @param @OpenApiRequestBody(
+     */
     @OpenApi(
             summary = "Update user by ID",
             operationId = "updateUserById",
@@ -111,10 +127,20 @@ public class UserController {
         ctx.status(200).json(new DeleteResponse());
     }
     
+    
+    /** 
+     * @param ctx
+     * @return String
+     */
     private static String getPathParamUserId(Context ctx) {
         return ctx.pathParam("userId", String.class).get();
     }
 
+    
+    /** 
+     * @param ctx
+     * @return User
+     */
     private static User getUserFromCtx(Context ctx) {
         User user;
         try {

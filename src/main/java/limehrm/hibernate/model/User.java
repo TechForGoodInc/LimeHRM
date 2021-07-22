@@ -49,49 +49,97 @@ public class User implements DBItem {
         
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getEmail() {
         return email;
     }
     
+    
+    /** 
+     * @param email
+     * @return User
+     */
     public User setEmail(String email) {
         this.email = email;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getPassword() {
         return password;
     }
     
+    
+    /** 
+     * @param password
+     * @return User
+     */
     public User setPassword(String password) {
         this.password = password;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getId() {
         return id;
     }
     
+    
+    /** 
+     * @param id
+     * @return User
+     */
     public User setId(String id) {
         this.id = id;
         return this;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getGoogleId() {
         return googleId;
     }
 
+    
+    /** 
+     * @param googleId
+     */
     public void setGoogleId(String googleId) {
         this.googleId = googleId;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getMicrosoftId() {
         return microsoftId;
     }
 
+    
+    /** 
+     * @param microsoftId
+     */
     public void setMicrosoftId(String microsoftId) {
         this.microsoftId = microsoftId;
     }
 
+    
+    /** 
+     * @param o
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,11 +148,19 @@ public class User implements DBItem {
         return Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getId(), user.getId()) && Objects.equals(getGoogleId(), user.getGoogleId()) && Objects.equals(getMicrosoftId(), user.getMicrosoftId());
     }
 
+    
+    /** 
+     * @return int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getEmail(), getPassword(), getId(), getGoogleId(), getMicrosoftId());
     }
 
+    
+    /** 
+     * @return Object
+     */
     @Override
     public Object getPrimaryKey() {
         return email;

@@ -14,6 +14,12 @@ import java.util.Arrays;
 public class ArrayTools {
     private static final LoggerUtil logger = new LoggerUtil(ArrayTools.class.getSimpleName());
     
+    
+    /** 
+     * @param array1
+     * @param array2
+     * @return byte[]
+     */
     public static byte[] addAll(final byte[] array1, byte[] array2) {
         byte[] joinedArray = Arrays.copyOf(array1, array1.length + array2.length);
         System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
@@ -21,6 +27,10 @@ public class ArrayTools {
         return joinedArray;
     }
     
+
+/** 
+ * @return byte[]
+ */
 //    public static char[] toChars(byte[] byteArray, Charset charset) {
 //        char[] charArray;
 //

@@ -114,168 +114,334 @@ public class Worker implements DBItem {
     }
     
     
+    
+    /** 
+     * @return String
+     */
     public String getId() {
         return id;
     }
     
+    
+    /** 
+     * @param id
+     * @return Worker
+     */
     public Worker setId(String id) {
         this.id = id;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getFirstName() {
         return firstName;
     }
     
+    
+    /** 
+     * @param firstName
+     * @return Worker
+     */
     public Worker setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getLastName() {
         return lastName;
     }
     
+    
+    /** 
+     * @param lastName
+     * @return Worker
+     */
     public Worker setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getPersonalEmail() {
         return personalEmail;
     }
     
+    
+    /** 
+     * @param personalEmail
+     * @return Worker
+     */
     public Worker setPersonalEmail(String personalEmail) {
         this.personalEmail = personalEmail;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getHomePhone() {
         return homePhone;
     }
     
+    
+    /** 
+     * @param homePhone
+     * @return Worker
+     */
     public Worker setHomePhone(String homePhone) {
         this.homePhone = homePhone;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getMobilePhone() {
         return mobilePhone;
     }
     
+    
+    /** 
+     * @param mobilePhone
+     * @return Worker
+     */
     public Worker setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
         return this;
     }
     
+    
+    /** 
+     * @return Address
+     */
     public Address getHomeAddress() {
         return homeAddress;
     }
     
+    
+    /** 
+     * @param homeAddress
+     * @return Worker
+     */
     public Worker setHomeAddress(Address homeAddress) {
         this.homeAddress = homeAddress;
         return this;
     }
     
+    
+    /** 
+     * @return Sex
+     */
     public Sex getSex() {
         return sex;
     }
     
+    
+    /** 
+     * @param sex
+     * @return Worker
+     */
     public Worker setSex(Sex sex) {
         this.sex = sex;
         return this;
     }
     
+    
+    /** 
+     * @return MaritalStatus
+     */
     public MaritalStatus getMaritalStatus() {
         return maritalStatus;
     }
     
+    
+    /** 
+     * @param maritalStatus
+     * @return Worker
+     */
     public Worker setMaritalStatus(MaritalStatus maritalStatus) {
         this.maritalStatus = maritalStatus;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getPositionName() {
         return positionName;
     }
     
+    
+    /** 
+     * @param positionName
+     * @return Worker
+     */
     public Worker setPositionName(String positionName) {
         this.positionName = positionName;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getTeamName() {
         return teamName;
     }
     
+    
+    /** 
+     * @param teamName
+     * @return Worker
+     */
     public Worker setTeamName(String teamName) {
         this.teamName = teamName;
         return this;
     }
     
+    
+    /** 
+     * @return boolean
+     */
     public boolean isSalary() {
         return salary;
     }
     
+    
+    /** 
+     * @param salary
+     * @return Worker
+     */
     public Worker setSalary(boolean salary) {
         this.salary = salary;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getDepartment() {
         return department;
     }
     
+    
+    /** 
+     * @param department
+     * @return Worker
+     */
     public Worker setDepartment(String department) {
         this.department = department;
         return this;
     }
     
+    
+    /** 
+     * @return Date
+     */
     public Date getBirthDate() {
         return birthDate;
     }
     
+    
+    /** 
+     * @param birthDate
+     * @return Worker
+     */
     public Worker setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
         return this;
     }
     
+    
+    /** 
+     * @return Date
+     */
     public Date getStartDate() {
         return startDate;
     }
     
+    
+    /** 
+     * @param startDate
+     * @return Worker
+     */
     public Worker setStartDate(Date startDate) {
         this.startDate = startDate;
         return this;
     }
     
+    
+    /** 
+     * @return Date
+     */
     public Date getEndDate() {
         return endDate;
     }
     
+    
+    /** 
+     * @param endDate
+     * @return Worker
+     */
     public Worker setEndDate(Date endDate) {
         this.endDate = endDate;
         return this;
     }
     
+    
+    /** 
+     * @return JobStatus
+     */
     public JobStatus getJobStatus() {
         return jobStatus;
     }
     
+    
+    /** 
+     * @param jobStatus
+     * @return Worker
+     */
     public Worker setJobStatus(JobStatus jobStatus) {
         this.jobStatus = jobStatus;
         return this;
     }
     
+    
+    /** 
+     * @return String
+     */
     public String getManagerEmail() {
         return managerEmail;
     }
     
+    
+    /** 
+     * @param managerEmail
+     * @return Worker
+     */
     public Worker setManagerEmail(String managerEmail) {
         this.managerEmail = managerEmail;
         return this;
     }
     
+    
+    /** 
+     * @return Object
+     */
     @Override
     public Object getPrimaryKey() {
         return this.id;
