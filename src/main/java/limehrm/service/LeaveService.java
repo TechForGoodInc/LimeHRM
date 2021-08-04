@@ -1,8 +1,10 @@
-package limehrm.leave;
+package limehrm.service;
+
 import limehrm.hibernate.dao.LeaveDao;
 import limehrm.hibernate.model.Leave;
 import limehrm.util.LoggerUtil;
 import java.util.List;
+
 public class LeaveService {
     private static LoggerUtil logger = new LoggerUtil(LeaveService.class.getSimpleName());
     
@@ -25,12 +27,12 @@ public class LeaveService {
 
     
     /** 
-     * @param id
+     * @param leaveId
      * @return Leave
      */
-    public static Leave findById(String id) {
+    public static Leave findById(String leaveId) {
         logger.logTrace("Fetching leave by id");
-        return LeaveDao.getLeave(id);
+        return LeaveDao.getLeave(leaveId);
     }
     
     

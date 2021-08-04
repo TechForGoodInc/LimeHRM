@@ -1,7 +1,5 @@
 package limehrm;
 
-import java.util.Map;
-
 public class ErrorResponse {
     public int status;
     public String title;

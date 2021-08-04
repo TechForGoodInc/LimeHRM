@@ -1,4 +1,4 @@
-package limehrm.worker;
+package limehrm.controller;
 
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
@@ -8,6 +8,7 @@ import limehrm.exceptions.JsonDeserializationException;
 import limehrm.hibernate.model.Worker;
 import limehrm.responses.DeleteResponse;
 import limehrm.responses.SavedResponse;
+import limehrm.service.WorkerService;
 import limehrm.util.LoggerUtil;
 
 public class WorkerController {
@@ -22,7 +23,7 @@ public class WorkerController {
      * @param @OpenApiRequestBody(
      */
     // TODO: https://github.com/tipsy/javalin-openapi-example
-    // TODO: https://github.com/tipsy/javalin-openapi-example/blob/master/src/main/java/io/javalin/example/java/user/UserController.java
+    // TODO: https://github.com/tipsy/javalin-openapi-example/blob/master/src/main/java/io/javalin/example/java/worker/WorkerController.java
     @OpenApi(
             summary = "Create worker",
             operationId = "createWorker",
@@ -42,7 +43,7 @@ public class WorkerController {
 
         WorkerService.save(worker);
 
-        ctx.header("Location", String.format("%s/api/workers/%s", ctx.host(), worker.getId()));
+        ctx.header("Location", String.format("%s/api/workers/%s", ctx.host(), worker.getWorkerId()));
         ctx.status(201).json(new SavedResponse());
     }
     
@@ -76,8 +77,26 @@ public class WorkerController {
     )
     public static void getOne(Context ctx) {
         logger.logDebug("GET: worker/:workerId");
-        ctx.status(200).json(WorkerService.findById(getPathParamUserId(ctx)));
+        ctx.status(200).json(WorkerService.findById(getPathParamWorkerId(ctx)));
     }
+
+
+//     @OpenApi(
+//         summary = "Get leave by ID",
+//         operationId = "getLeaveById",
+//         path = "/api/workers/:leaveId",
+//         method = HttpMethod.GET,
+//         pathParams = {@OpenApiParam(name = "leaveId", type = Integer.class, description = "The leave ID")},
+//         tags = {"Leave"},
+//         responses = {
+//                 @OpenApiResponse(status = "200", content = {@OpenApiContent(from = Worker.class)}),
+//                 @OpenApiResponse(status = "404", content = {@OpenApiContent(from = ErrorResponse.class)})
+//         }
+// )   
+//     public static void getLeave(Context ctx) {
+//         logger.logDebug("GET: worker/:leaveId");
+//         ctx.status(200).json(WorkerService.getLeave(getPathParamLeaveId(ctx)));
+//     }
     
     
     /** 
@@ -88,12 +107,12 @@ public class WorkerController {
      * @param @OpenApiRequestBody(
      */
     @OpenApi(
-            summary = "Update user by ID",
+            summary = "Update worker by ID",
             operationId = "updateWorkerById",
             path = "/api/workers/:workerId",
             method = HttpMethod.PATCH,
             pathParams = {@OpenApiParam(name = "workerId", type = Integer.class, description = "The worker ID")},
-            tags = {"User"},
+            tags = {"Worker"},
             requestBody = @OpenApiRequestBody(content = {@OpenApiContent(from = Worker.class)}),
             responses = {
                     @OpenApiResponse(status = "200", content = {@OpenApiContent(from = SavedResponse.class)}),
@@ -105,7 +124,7 @@ public class WorkerController {
         logger.logDebug("PATCH: workers/:workerId");
 
         Worker worker = getWorkerFromCtx(ctx);
-        worker.setId(getPathParamUserId(ctx));
+        worker.setWorkerId(getPathParamWorkerId(ctx));
 
         WorkerService.update(worker);
         ctx.status(200).json(new SavedResponse());
@@ -117,7 +136,7 @@ public class WorkerController {
             path = "/api/workers/:workerId",
             method = HttpMethod.DELETE,
             pathParams = {@OpenApiParam(name = "workerId", type = Integer.class, description = "The worker ID")},
-            tags = {"User"},
+            tags = {"Worker"},
             responses = {
                     @OpenApiResponse(status = "200", content = {@OpenApiContent(from = DeleteResponse.class)}),
                     @OpenApiResponse(status = "404", content = {@OpenApiContent(from = ErrorResponse.class)})
@@ -125,7 +144,7 @@ public class WorkerController {
     )
     public static void delete(Context ctx) {
         logger.logDebug("DELETE: workers/:workerId");
-        WorkerService.delete(getPathParamUserId(ctx));
+        WorkerService.delete(getPathParamWorkerId(ctx));
         ctx.status(200).json(new DeleteResponse());
     }
     
@@ -134,8 +153,16 @@ public class WorkerController {
      * @param ctx
      * @return String
      */
-    private static String getPathParamUserId(Context ctx) {
+    private static String getPathParamWorkerId(Context ctx) {
         return ctx.pathParam("workerId", String.class).get();
+    }
+    /** 
+     * @param ctx
+     * @return String
+     */
+
+    private static String getPathParamLeaveId(Context ctx) {
+        return ctx.pathParam("leaveId", String.class).get();
     }
     
     

@@ -4,11 +4,9 @@ import limehrm.hibernate.model.Worker;
 import limehrm.hibernate.util.HibernateUtil;
 import limehrm.util.LoggerUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.UUID;
@@ -17,11 +15,11 @@ public class WorkerDao {
     private static LoggerUtil logger = new LoggerUtil(WorkerDao.class.getSimpleName());
     
     public static void saveWorker(Worker worker) {
-        if (worker.getId() == null) {
+        if (worker.getWorkerId() == null) {
             String uuid = UUID.randomUUID().toString().toUpperCase().substring(0, 7)
                     .replace("0", "Z").replace("o", "Y");
     
-            worker.setId(uuid);
+            worker.setWorkerId(uuid);
         }
         
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -47,12 +45,12 @@ public class WorkerDao {
         HibernateUtil.close();
     }
     
-    public static Worker getWorker(String id) {
+    public static Worker getWorker(String workerId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
     
         session.beginTransaction();
     
-        Worker worker = session.get(Worker.class, id);
+        Worker worker = session.get(Worker.class, workerId);
     
         session.getTransaction().commit();
     
@@ -79,12 +77,12 @@ public class WorkerDao {
         return workers;
     }
     
-    public static void deleteWorker(String id) {
+    public static void deleteWorker(String workerId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
     
         session.beginTransaction();
     
-        Worker worker = session.get(Worker.class, id);
+        Worker worker = session.get(Worker.class, workerId);
         
         session.delete(worker);
     
@@ -92,18 +90,39 @@ public class WorkerDao {
     
         HibernateUtil.close();
     }
+
+    // public static List<Worker> getAllLeave() {
+    //     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        
+    //     session.beginTransaction();
+        
+    //     CriteriaQuery<Worker> criteria = session.getCriteriaBuilder().createQuery(Worker.class);
+        
+    //     criteria.from(Worker.class);
+        
+    //     List<Worker> worker = session.createQuery(criteria).getResultList();
+        
+    //     session.getTransaction().commit();
+        
+    //     HibernateUtil.close();
+        
+    //     return user;
+    // }
     
-    public static Worker getWorkerFromEmail(String email) {
+    
+    public static Worker getLeave(String leaveId) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    
+       
         session.beginTransaction();
         
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
     
         CriteriaQuery<Worker> criteriaQuery = criteriaBuilder.createQuery(Worker.class);
-    
+        
         Root<Worker> root = criteriaQuery.from(Worker.class);
-        criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("email"), email));
+        root.join("leave", JoinType.RIGHT);
+        
+        criteriaQuery.select(criteriaBuilder.construct(Worker.class, root.get("leave_id"), root.get("leave").get("leave_id")));
     
         List<Worker> workers = session.createQuery(criteriaQuery).getResultList();
     

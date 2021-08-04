@@ -1,14 +1,11 @@
 package limehrm.hibernate.dao;
 
 import limehrm.hibernate.model.User;
-import limehrm.hibernate.model.Worker;
 import limehrm.hibernate.util.HibernateUtil;
 import limehrm.util.LoggerUtil;
 import org.hibernate.Session;
-
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-import java.util.UUID;
 
 public class UserDao {
     private static LoggerUtil logger = new LoggerUtil(WorkerDao.class.getSimpleName());
@@ -47,15 +44,15 @@ public class UserDao {
     
     
     /** 
-     * @param email
+     * @param userId
      * @return User
      */
-    public static User getUser(String email) {
+    public static User getUser(String userId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+        logger.logWarn(userId);
         session.beginTransaction();
         
-        User user = session.get(User.class, email);
+        User user = session.get(User.class, userId);
         
         session.getTransaction().commit();
         
@@ -63,7 +60,21 @@ public class UserDao {
         
         return user;
     }
-    
+
+
+    public static User getUserbyuserId(String userId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        logger.logWarn(userId);
+        session.beginTransaction();
+        
+        User user = session.get(User.class, userId);
+        
+        session.getTransaction().commit();
+        
+        HibernateUtil.close();
+        
+        return user;
+    }
     
     /** 
      * @return List<User>

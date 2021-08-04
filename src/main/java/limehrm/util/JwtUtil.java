@@ -48,7 +48,7 @@ public class JwtUtil {
         
         User u = new User();
         u.setEmail(body.getSubject());
-        u.setId(String.valueOf(body.get("userId")));
+        u.setUserId(String.valueOf(body.get("userId")));
         u.setGoogleId(String.valueOf(body.get("googleId")));
         u.setMicrosoftId(String.valueOf(body.get("microsoftId")));
         
@@ -64,7 +64,7 @@ public class JwtUtil {
      */
     public static String generateToken(User user, PrivateKey privateKey) {
         Claims claims = Jwts.claims().setSubject(user.getEmail());
-        claims.put("id", user.getId());
+        claims.put("id", user.getUserId());
         claims.put("googleId", user.getGoogleId());
         claims.put("microsoftId", user.getMicrosoftId());
         

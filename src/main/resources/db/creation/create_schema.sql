@@ -25,9 +25,36 @@ create type limehrm.leave_status as enum ('APPROVE', 'CANCEL', 'REJECT');
 
 create type limehrm.stage as enum ('APPLICATION_RECIEVED', 'PHONE_SCREENING', 'REFERENCE_CHECK', 'JOB_OFFER', 'HIRED', 'REJECTED', 'IN_PERSON_INTERVIEW');
 
+
+create table limehrm.user (
+    email text not null,
+    password text,
+    user_id text,
+    google_id text,
+    microsoft_id text
+);
+
+alter table limehrm.user add primary key(user_id);
+
+create table limehrm.leave (
+    
+    leave_id text not null,
+    leave_type text,
+    from_date date,
+    to_date date,
+    comment text,
+    leave_status limehrm.leave_status
+
+    
+);
+
+alter table limehrm.leave add primary key(leave_id); 
+
 create table limehrm.worker (
-    id text not null,
-    email text
+    worker_id text not null,
+    user_id text REFERENCES limehrm.user(user_id),
+    leave_id text REFERENCES limehrm.leave(leave_id),
+    email text,
     first_name text,
     last_name text,
     personal_email text,
@@ -47,33 +74,10 @@ create table limehrm.worker (
     manager_email text
 );
 
-alter table limehrm.worker add primary key(id);
-
-
-create table limehrm.user (
-    email text not null,
-    password text,
-    userId text,
-    google_id text,
-    microsoft_id text
-);
-
-alter table limehrm.user add primary key(email);
-
-create table limehrm.leave (
-    email text
-    id text not null,
-    leave_type text,
-    from_date date,
-    to_date date,
-    comment text,
-    leave_status limehrm.leave_status
-
-    
-);
+alter table limehrm.worker add primary key(worker_id);
 
 create table limehrm.recruitment (
-    id text not null,
+    recruitment_id text not null,
     vacancy text,
     candidate text,
     email text,

@@ -4,9 +4,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import limehrm.exceptions.InvalidCredentialsException;
 import limehrm.hibernate.dao.UserDao;
 import limehrm.hibernate.model.User;
-import limehrm.util.AuthUtil;
 import limehrm.util.JwtUtil;
-
 import java.security.PublicKey;
 
 public class JwtRequestFilter {

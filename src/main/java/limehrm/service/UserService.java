@@ -1,8 +1,10 @@
-package limehrm.user;
+package limehrm.service;
+
 import limehrm.hibernate.dao.UserDao;
 import limehrm.hibernate.model.User;
 import limehrm.util.LoggerUtil;
 import java.util.List;
+
 public class UserService {
     private static LoggerUtil logger = new LoggerUtil(UserService.class.getSimpleName());
     
@@ -25,12 +27,13 @@ public class UserService {
 
     
     /** 
-     * @param email
+     * @param userId
      * @return User
      */
-    public static User findById(String email) {
+    public static User findById(String userId) {
+        logger.logWarn(userId);
         logger.logTrace("Fetching user by email");
-        return UserDao.getUser(email);
+        return UserDao.getUser(userId);
     }
     
     

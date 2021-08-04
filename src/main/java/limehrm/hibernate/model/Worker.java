@@ -7,7 +7,6 @@ import limehrm.util.DBItem;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -22,8 +21,16 @@ import java.util.Date;
 public class Worker implements DBItem {
     
     @Id
-    @Column(name = "id")
-    private String id;
+    @Column(name = "worker_id")
+    private String workerId;
+
+  
+    @Column(name = "user_id")
+    private String userId;
+    
+    
+    @Column(name = "leave_id")
+    private String leaveId;
     
     @Column(name = "first_name")
     private String firstName;
@@ -61,7 +68,7 @@ public class Worker implements DBItem {
     private String teamName;
     
     @Column(name = "salary")
-    private boolean salary;
+    private Boolean salary;
     
     @Column(name = "department") 
     private String department;
@@ -86,14 +93,16 @@ public class Worker implements DBItem {
     public Worker() {
     }
     
-    public Worker(String id) {
+    public Worker(String workerId) {
         super();
-        this.id = id;
+        this.workerId = workerId;
     }
     
-    public Worker(String id, String firstName, String lastName, String personalEmail, String homePhone, String mobilePhone, Address homeAddress, Sex sex, MaritalStatus maritalStatus, String positionName, String teamName, boolean salary, String department, Date birthDate, Date startDate, Date endDate, JobStatus jobStatus, String managerEmail) {
+    public Worker(String workerId, String userId, String leaveId, String firstName, String lastName, String personalEmail, String homePhone, String mobilePhone, Address homeAddress, Sex sex, MaritalStatus maritalStatus, String positionName, String teamName, Boolean salary, String department, Date birthDate, Date startDate, Date endDate, JobStatus jobStatus, String managerEmail) {
         super();
-        this.id = id;
+        this.workerId = workerId;
+        this.userId = userId;
+        this.leaveId = leaveId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.personalEmail = personalEmail;
@@ -118,21 +127,56 @@ public class Worker implements DBItem {
     /** 
      * @return String
      */
-    public String getId() {
-        return id;
+    public String getWorkerId() {
+        return workerId;
+    }
+    
+    
+    /** 
+     * @param workerId
+     * @return Worker
+     */
+    public Worker setWorkerId(String workerId) {
+        this.workerId = workerId;
+        return this;
+    }
+    
+    /** 
+     * @return String
+     */
+    public String getUser() {
+        return this.userId;
     }
     
     
     /** 
      * @param id
-     * @return Worker
+     * @return User
      */
-    public Worker setId(String id) {
-        this.id = id;
-        return this;
+    public String setUserId(String userId) {
+        this.userId = userId;
+        return this.userId;
     }
     
     
+    /** 
+     * @return String
+     */
+    public String getLeaveId() {
+        return leaveId;
+    }
+    
+    
+    /** 
+     * @param id
+     * @return List<leave>
+     */
+    public String setLeaveId(String leaveId) {
+        this.leaveId = leaveId;
+        return this.leaveId;
+    }
+
+
     /** 
      * @return String
      */
@@ -316,7 +360,7 @@ public class Worker implements DBItem {
     /** 
      * @return boolean
      */
-    public boolean isSalary() {
+    public Boolean isSalary() {
         return salary;
     }
     
@@ -325,7 +369,7 @@ public class Worker implements DBItem {
      * @param salary
      * @return Worker
      */
-    public Worker setSalary(boolean salary) {
+    public Worker setSalary(Boolean salary) {
         this.salary = salary;
         return this;
     }
@@ -444,6 +488,6 @@ public class Worker implements DBItem {
      */
     @Override
     public Object getPrimaryKey() {
-        return this.id;
+        return this.workerId;
     }
 }

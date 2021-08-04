@@ -5,13 +5,7 @@ import limehrm.hibernate.model.User;
 import limehrm.hibernate.model.Worker;
 import limehrm.hibernate.model.Recruitment;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.cfgxml.spi.LoadedConfig;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
-import org.hibernate.service.ServiceRegistry;
-
-import java.util.Properties;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
@@ -28,9 +22,6 @@ public class HibernateUtil {
                     .addAnnotatedClass(User.class)
                     .addAnnotatedClass(Leave.class)
                     .addAnnotatedClass(Recruitment.class);
-                   
-//            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-//                    .applySettings(configuration.getProperties()).build();
     
             sessionFactory = configuration.buildSessionFactory();
         } catch (Exception e) {

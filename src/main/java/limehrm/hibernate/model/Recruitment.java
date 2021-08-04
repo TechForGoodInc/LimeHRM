@@ -1,16 +1,12 @@
 package limehrm.hibernate.model;
 
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import limehrm.util.DBItem;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-
 import javax.persistence.*;
 import java.util.Date;
-
 
 @Entity
 @Table(name = "recruitment", schema = "limehrm")
@@ -20,8 +16,8 @@ import java.util.Date;
 public class Recruitment implements DBItem {
     
     @Id
-    @Column(name = "id")
-    private String id;
+    @Column(name = "recruitment_id")
+    private String recruitmentId;
     
     @Column(name = "vacancy")
     private String vacancy;
@@ -48,13 +44,13 @@ public class Recruitment implements DBItem {
     
     public Recruitment(String id) {
         super();
-        this.id = id;
+        this.recruitmentId = id;
     }
     
-    public Recruitment(String id, String vacancy, String candidate, String personalEmail, String contactNumber, Date dateApplied, Stage stage ) {
+    public Recruitment(String recruitmentId, String vacancy, String candidate, String personalEmail, String contactNumber, Date dateApplied, Stage stage ) {
         super();
         
-        this.id = id;
+        this.recruitmentId = recruitmentId;
         this.vacancy = vacancy;
         this.candidate = candidate;
         this.personalEmail= personalEmail;
@@ -65,13 +61,11 @@ public class Recruitment implements DBItem {
         
     }
     
-    
-    
     /** 
      * @return String
      */
-    public String getId() {
-        return id;
+    public String getRecruitmentId() {
+        return recruitmentId;
     }
 
     
@@ -79,8 +73,8 @@ public class Recruitment implements DBItem {
      * @param id
      * @return Recruitment
      */
-    public Recruitment setId(String id) {
-        this.id = id;
+    public Recruitment setRecruitmentId(String recruitmentId) {
+        this.recruitmentId = recruitmentId;
         return this;
     }
 
@@ -198,7 +192,7 @@ public class Recruitment implements DBItem {
      */
     @Override
     public Object getPrimaryKey() {
-        return this.id;
+        return this.recruitmentId;
     }
 }
 

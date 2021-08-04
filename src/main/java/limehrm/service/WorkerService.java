@@ -1,11 +1,8 @@
-package limehrm.worker;
+package limehrm.service;
 
 import limehrm.hibernate.dao.WorkerDao;
 import limehrm.hibernate.model.Worker;
 import limehrm.util.LoggerUtil;
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class WorkerService {
@@ -34,11 +31,15 @@ public class WorkerService {
      * @param id
      * @return Worker
      */
-    public static Worker findById(String id) {
+    public static Worker findById(String workerId) {
         logger.logTrace("Fetching worker by id");
-        return WorkerDao.getWorker(id);
+        return WorkerDao.getWorker(workerId);
     }
-    
+
+    public static Worker getLeave(String leaveId) {
+        logger.logTrace("Getting worker leave information from database");
+        return WorkerDao.getLeave(leaveId);
+    }
     
     /** 
      * @param worker
@@ -56,4 +57,7 @@ public class WorkerService {
         logger.logTrace("Deleting worker record from database");
         WorkerDao.deleteWorker(workerId);
     }
+
+
+    
 }

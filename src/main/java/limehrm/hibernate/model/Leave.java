@@ -7,31 +7,30 @@ import limehrm.util.DBItem;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-
 import javax.persistence.*;
 import java.util.Date;
-
 
 @Entity
 @Table(name = "leave", schema = "limehrm")
 @TypeDefs ({
     @TypeDef(name = "json", typeClass = JsonStringType.class),
-        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
-        @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
+    @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
+    @TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 })
 public class Leave implements DBItem {
-    
+
     @Id
-    @Column(name = "id")
-    private String id;
+    @Column(name = "leave_id")
+    private String leaveId;
+
     
     @Column(name = "leave_type")
     private String leaveType;
     
-    @Column(name = "fromDate")
+    @Column(name = "from_date")
     private Date fromDate;
     
-    @Column(name = "toDate")
+    @Column(name = "to_date")
     private Date toDate;
     
     @Column(name = "comment")
@@ -47,15 +46,15 @@ public class Leave implements DBItem {
     public Leave() {
     }
     
-    public Leave(String id) {
+    public Leave(String leaveId) {
         super();
-        this.id = id;
+        this.leaveId= leaveId;
     }
     
-    public Leave(String id, String leaveType, Date fromDate, Date toDate, String comment, LeaveStatus leaveStatus  ) {
+    public Leave(String leaveId, String leaveType, Date fromDate, Date toDate, String comment, LeaveStatus leaveStatus  ) {
         super();
         
-        this.id = id;
+        this.leaveId = leaveId;
         this.leaveType = leaveType;
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -68,8 +67,8 @@ public class Leave implements DBItem {
     /** 
      * @return String
      */
-    public String getId() {
-        return id;
+    public String getLeaveId() {
+        return leaveId;
     }
 
     
@@ -77,8 +76,8 @@ public class Leave implements DBItem {
      * @param id
      * @return Leave
      */
-    public Leave setId(String id) {
-        this.id = id;
+    public Leave setLeaveId(String leaveId) {
+        this.leaveId = leaveId;
         return this;
     }
 
@@ -178,7 +177,7 @@ public class Leave implements DBItem {
      */
     @Override
     public Object getPrimaryKey() {
-        return this.id;
+        return this.leaveId;
     }
 }
 

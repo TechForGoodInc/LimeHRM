@@ -9,22 +9,18 @@ import io.javalin.plugin.openapi.OpenApiPlugin;
 import io.javalin.plugin.openapi.ui.ReDocOptions;
 import io.javalin.plugin.openapi.ui.SwaggerOptions;
 import io.swagger.v3.oas.models.info.Info;
+import limehrm.controller.LeaveController;
+import limehrm.controller.RecruitmentController;
+import limehrm.controller.UserController;
+import limehrm.controller.WorkerController;
 import limehrm.exceptions.InvalidCredentialsException;
 import limehrm.hibernate.model.User;
-
 import limehrm.mappings.ExceptionMappings;
 import limehrm.mappings.UrlMappings;
 import limehrm.util.JwtUtil;
 import limehrm.util.LoggerUtil;
-import limehrm.worker.WorkerController;
-import limehrm.user.UserController;
-import limehrm.leave.LeaveController;
-import limehrm.recruitment.RecruitmentController;
-
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-
 import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class Application {
@@ -37,7 +33,7 @@ public class Application {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         LoggerUtil logger = LoggerUtil.getLogger("Application");
         
-        // TODO: Convert HomePhone to PersonalPhone
+        // TODO:  PersonalPhone
         
         // Create and Store Keys
         KeyPair keyPair = JwtUtil.generateKeyPair();
@@ -50,7 +46,7 @@ public class Application {
             config.enableCorsForAllOrigins();
             config.accessManager((handler, ctx, permittedRoles) -> {
                 String authHeader = ctx.header("Authorization");
-                // TODO: FIX EndsWith (not secure?)
+                // TODO: FIX EndsWith (not secure?)// 
                 if (ctx.url().endsWith("/api/authentication/getToken") || !ctx.url().contains("/api/")) {
                     handler.handle(ctx);
                 }
@@ -101,6 +97,7 @@ public class Application {
                         patch(WorkerController::update);
                         delete(WorkerController::delete);
                     });
+                    
                 });
                  
             });

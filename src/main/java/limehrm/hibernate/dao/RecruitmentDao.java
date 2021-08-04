@@ -4,12 +4,7 @@ import limehrm.hibernate.model.Recruitment;
 import limehrm.hibernate.util.HibernateUtil;
 import limehrm.util.LoggerUtil;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,11 +12,11 @@ public class RecruitmentDao {
     private static LoggerUtil logger = new LoggerUtil(RecruitmentDao.class.getSimpleName());
     
     public static void saveRecruitment(Recruitment recruitment) {
-        if (recruitment.getId() == null) {
+        if (recruitment.getRecruitmentId() == null) {
             String uuid = UUID.randomUUID().toString().toUpperCase().substring(0, 7)
                     .replace("0", "Z").replace("o", "Y");
     
-            recruitment.setId(uuid);
+            recruitment.setRecruitmentId(uuid);
         }
         
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -47,12 +42,12 @@ public class RecruitmentDao {
         HibernateUtil.close();
     }
     
-    public static Recruitment getRecruitment(String id) {
+    public static Recruitment getRecruitment(String RecruitmentId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
     
         session.beginTransaction();
     
-        Recruitment recruitment = session.get(Recruitment.class, id);
+        Recruitment recruitment = session.get(Recruitment.class, RecruitmentId);
     
         session.getTransaction().commit();
     

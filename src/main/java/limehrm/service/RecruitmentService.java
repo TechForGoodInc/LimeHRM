@@ -1,8 +1,10 @@
-package limehrm.recruitment;
+package limehrm.service;
+
 import limehrm.hibernate.dao.RecruitmentDao;
 import limehrm.hibernate.model.Recruitment;
 import limehrm.util.LoggerUtil;
 import java.util.List;
+
 public class RecruitmentService {
     private static LoggerUtil logger = new LoggerUtil(RecruitmentService.class.getSimpleName());
     
@@ -28,9 +30,9 @@ public class RecruitmentService {
      * @param email
      * @return Recruitment
      */
-    public static Recruitment findById(String email) {
+    public static Recruitment findById(String recruitmentId) {
         logger.logTrace("Fetching recruitment by personal_email");
-        return RecruitmentDao.getRecruitment(email);
+        return RecruitmentDao.getRecruitment(recruitmentId);
     }
     
     

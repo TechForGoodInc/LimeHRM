@@ -1,4 +1,4 @@
-package limehrm.recruitment;
+package limehrm.controller;
 
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
@@ -8,19 +8,14 @@ import limehrm.exceptions.JsonDeserializationException;
 import limehrm.hibernate.model.Recruitment;
 import limehrm.responses.DeleteResponse;
 import limehrm.responses.SavedResponse;
+import limehrm.service.RecruitmentService;
 import limehrm.util.LoggerUtil;
 
 public class RecruitmentController {
     private static LoggerUtil logger = new LoggerUtil(RecruitmentController.class.getSimpleName());
     
     
-    /** 
-     * @param recruitment"
-     * @param "createRecruitment"
-     * @param "/api/recruitments"
-     * @param HttpMethod.POST
-     * @param @OpenApiRequestBody(
-     */
+    
     // TODO: https://github.com/tipsy/javalin-openapi-example
     // TODO: https://github.com/tipsy/javalin-openapi-example/blob/master/src/main/java/io/javalin/example/java/Recruitment/RecruitmentController.java
     @OpenApi(
@@ -42,7 +37,7 @@ public class RecruitmentController {
 
         RecruitmentService.save(recruitment);
 
-        ctx.header("Location", String.format("%s/api/recruitments/%s", ctx.host(), recruitment.getId()));
+        ctx.header("Location", String.format("%s/api/recruitments/%s", ctx.host(), recruitment.getRecruitmentId()));
         ctx.status(201).json(new SavedResponse());
     }
     
@@ -80,13 +75,7 @@ public class RecruitmentController {
     }
     
     
-    /** 
-     * @param ID"
-     * @param "updateRecruitmentById"
-     * @param "/api/recruitments/:recruitmentId"
-     * @param HttpMethod.PATCH
-     * @param @OpenApiRequestBody(
-     */
+  
     @OpenApi(
             summary = "Update Recruitment by ID",
             operationId = "updateRecruitmentById",
@@ -105,7 +94,7 @@ public class RecruitmentController {
         logger.logDebug("PATCH: recruitments/:recruitmentId");
 
         Recruitment recruitment = getRecruitmentFromCtx(ctx);
-        recruitment.setId(getPathParamRecruitmentId(ctx));
+        recruitment.setRecruitmentId(getPathParamRecruitmentId(ctx));
 
         RecruitmentService.update(recruitment);
         ctx.status(200).json(new SavedResponse());

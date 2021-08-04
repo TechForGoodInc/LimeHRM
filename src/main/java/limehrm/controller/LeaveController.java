@@ -1,4 +1,4 @@
-package limehrm.leave;
+package limehrm.controller;
 
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
@@ -8,19 +8,13 @@ import limehrm.exceptions.JsonDeserializationException;
 import limehrm.hibernate.model.Leave;
 import limehrm.responses.DeleteResponse;
 import limehrm.responses.SavedResponse;
+import limehrm.service.LeaveService;
 import limehrm.util.LoggerUtil;
 
 public class LeaveController {
     private static LoggerUtil logger = new LoggerUtil(LeaveController.class.getSimpleName());
     
-    
-    /** 
-     * @param leave"
-     * @param "createLeave"
-     * @param "/api/leaves"
-     * @param HttpMethod.POST
-     * @param @OpenApiRequestBody(
-     */
+   
     // TODO: https://github.com/tipsy/javalin-openapi-example
     // TODO: https://github.com/tipsy/javalin-openapi-example/blob/master/src/main/java/io/javalin/example/java/Leave/LeaveController.java
     @OpenApi(
@@ -42,7 +36,7 @@ public class LeaveController {
 
         LeaveService.save(leave);
 
-        ctx.header("Location", String.format("%s/api/leaves/%s", ctx.host(), leave.getId()));
+        ctx.header("Location", String.format("%s/api/leaves/%s", ctx.host(), leave.getLeaveId()));
         ctx.status(201).json(new SavedResponse());
     }
     
@@ -80,13 +74,7 @@ public class LeaveController {
     }
     
     
-    /** 
-     * @param ID"
-     * @param "updateLeaveById"
-     * @param "/api/leaves/:leaveId"
-     * @param HttpMethod.PATCH
-     * @param @OpenApiRequestBody(
-     */
+   
     @OpenApi(
             summary = "Update Leave by ID",
             operationId = "updateLeaveById",
@@ -105,7 +93,7 @@ public class LeaveController {
         logger.logDebug("PATCH: leaves/:leaveId");
 
         Leave leave = getLeaveFromCtx(ctx);
-        leave.setId(getPathParamLeaveId(ctx));
+        leave.setLeaveId(getPathParamLeaveId(ctx));
 
         LeaveService.update(leave);
         ctx.status(200).json(new SavedResponse());
