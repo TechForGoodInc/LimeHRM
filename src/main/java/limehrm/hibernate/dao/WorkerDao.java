@@ -91,24 +91,6 @@ public class WorkerDao {
         HibernateUtil.close();
     }
 
-    // public static List<Worker> getAllLeave() {
-    //     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        
-    //     session.beginTransaction();
-        
-    //     CriteriaQuery<Worker> criteria = session.getCriteriaBuilder().createQuery(Worker.class);
-        
-    //     criteria.from(Worker.class);
-        
-    //     List<Worker> worker = session.createQuery(criteria).getResultList();
-        
-    //     session.getTransaction().commit();
-        
-    //     HibernateUtil.close();
-        
-    //     return user;
-    // }
-    
     
     public static Worker getLeave(String leaveId) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

@@ -88,24 +88,4 @@ public class RecruitmentDao {
         HibernateUtil.close();
     }
     
-    // public static Recruitment getRecruitmentFromEmail(String email) {
-    //     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-    
-    //     session.beginTransaction();
-        
-    //     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-    
-    //     CriteriaQuery<Recruitment> criteriaQuery = criteriaBuilder.createQuery(Recruitment.class);
-    
-    //     Root<Recruitment> root = criteriaQuery.from(Recruitment.class);
-    //     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("email"), email));
-    
-    //     List<Recruitment> recruitment = session.createQuery(criteriaQuery).getResultList();
-    
-    //     session.getTransaction().commit();
-    
-    //     HibernateUtil.close();
-    
-    //     return recruitment.get(0);
-    // }
 }

@@ -109,24 +109,5 @@ public class LeaveDao {
         HibernateUtil.close();
     }
     
-    // public static Leave getLeaveFromEmail(String email) {
-    //     Session session = HibernateUtil.getSessionFactory().getCurrentSession();
     
-    //     session.beginTransaction();
-        
-    //     CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-    
-    //     CriteriaQuery<Leave> criteriaQuery = criteriaBuilder.createQuery(Leave.class);
-    
-    //     Root<Leave> root = criteriaQuery.from(Leave.class);
-    //     criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("email"), email));
-    
-    //     List<Leave> leave = session.createQuery(criteriaQuery).getResultList();
-    
-    //     session.getTransaction().commit();
-    
-    //     HibernateUtil.close();
-    
-    //     return leave.get(0);
-    // }
 }
