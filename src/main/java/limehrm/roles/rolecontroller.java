@@ -2,7 +2,7 @@ import limehrm.hibernate.dao.RoleDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Role;
+import limhrm.hibernate.model.Role;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import services.RoleService;
