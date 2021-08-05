@@ -1,5 +1,3 @@
-package edu.ust.ics.payroll.action;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

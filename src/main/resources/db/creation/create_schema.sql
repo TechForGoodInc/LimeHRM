@@ -90,7 +90,7 @@ create table `employeepay` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `empleyadosweldo`
+-- Dumping data for table `employeepay`
 --
 
 INSERT INTO `employeepay` (`id`, `basicPay`, `firstName`, `grossPay`, `hours`, `lastName`, `netPay`, `overTimePay`, `payRate`, `withHoldingTax`) VALUES
