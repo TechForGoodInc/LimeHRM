@@ -1,5 +1,3 @@
-package edu.ust.ics.payroll.helper;
-
 public interface TaxPercentage {
 	double GPLT10K = 0.2;
 	double GPLT18K = 0.10;
