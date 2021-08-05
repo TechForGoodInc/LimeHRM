@@ -2,11 +2,15 @@
 /.gradle/
 /build/
 /build/classes/java/main/
+/bin
 
 # IntelliJ Exclude
 /.idea/
 
 # Eclipse Exclude
+/.settings/
+/.classpath/
+/.project/
 /.settings/
 
 # MacOS Exclude

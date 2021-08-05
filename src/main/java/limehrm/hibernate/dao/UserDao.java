@@ -1,18 +1,19 @@
 package limehrm.hibernate.dao;
 
 import limehrm.hibernate.model.User;
-import limehrm.hibernate.model.Worker;
 import limehrm.hibernate.util.HibernateUtil;
 import limehrm.util.LoggerUtil;
 import org.hibernate.Session;
-
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-import java.util.UUID;
 
 public class UserDao {
     private static LoggerUtil logger = new LoggerUtil(WorkerDao.class.getSimpleName());
     
+    
+    /** 
+     * @param user
+     */
     public static void saveUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -25,6 +26,10 @@ public class UserDao {
         HibernateUtil.close();
     }
     
+    
+    /** 
+     * @param user
+     */
     public static void updateUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -37,12 +42,32 @@ public class UserDao {
         HibernateUtil.close();
     }
     
-    public static User getUser(String email) {
+    
+    /** 
+     * @param userId
+     * @return User
+     */
+    public static User getUser(String userId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+        logger.logWarn(userId);
         session.beginTransaction();
         
-        User user = session.get(User.class, email);
+        User user = session.get(User.class, userId);
+        
+        session.getTransaction().commit();
+        
+        HibernateUtil.close();
+        
+        return user;
+    }
+
+
+    public static User getUserbyuserId(String userId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        logger.logWarn(userId);
+        session.beginTransaction();
+        
+        User user = session.get(User.class, userId);
         
         session.getTransaction().commit();
         
@@ -51,6 +76,9 @@ public class UserDao {
         return user;
     }
     
+    /** 
+     * @return List<User>
+     */
     public static List<User> getAllUsers() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         
@@ -69,6 +97,10 @@ public class UserDao {
         return user;
     }
     
+    
+    /** 
+     * @param email
+     */
     public static void deleteUser(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         

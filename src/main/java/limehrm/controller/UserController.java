@@ -1,4 +1,4 @@
-package limehrm.user;
+package limehrm.controller;
 import io.javalin.http.BadRequestResponse;
 import limehrm.responses.DeleteResponse;
 import io.javalin.http.Context;
@@ -7,12 +7,14 @@ import limehrm.ErrorResponse;
 import limehrm.exceptions.JsonDeserializationException;
 import limehrm.hibernate.model.User;
 import limehrm.responses.SavedResponse;
+import limehrm.service.UserService;
 import limehrm.util.LoggerUtil;
 
 
 public class UserController {
     private static LoggerUtil logger = new LoggerUtil(UserController.class.getSimpleName());
 
+  
     @OpenApi(
             summary = "Create user",
             operationId = "createUser",
@@ -32,7 +34,7 @@ public class UserController {
 
         UserService.save(user);
 
-        ctx.header("Location", String.format("%s/api/users/%s", ctx.host(), user.getId()));
+        ctx.header("Location", String.format("%s/api/users/%s", ctx.host(), user.getUserId()));
         ctx.status(201).json(new SavedResponse());
     }
 
@@ -69,6 +71,7 @@ public class UserController {
         ctx.status(200).json(UserService.findById(getPathParamUserId(ctx)));
     }
     
+   
     @OpenApi(
             summary = "Update user by ID",
             operationId = "updateUserById",
@@ -87,7 +90,7 @@ public class UserController {
         logger.logDebug("PATCH: users/:userId");
 
         User user = getUserFromCtx(ctx);
-        user.setId(getPathParamUserId(ctx));
+        user.setUserId(getPathParamUserId(ctx));
 
         UserService.update(user);
         ctx.status(200).json(new SavedResponse());
@@ -111,10 +114,20 @@ public class UserController {
         ctx.status(200).json(new DeleteResponse());
     }
     
+    
+    /** 
+     * @param ctx
+     * @return String
+     */
     private static String getPathParamUserId(Context ctx) {
         return ctx.pathParam("userId", String.class).get();
     }
 
+    
+    /** 
+     * @param ctx
+     * @return User
+     */
     private static User getUserFromCtx(Context ctx) {
         User user;
         try {

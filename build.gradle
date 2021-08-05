@@ -2,8 +2,9 @@ plugins {
     id "java"
     id 'application'
 }
-
+//mainClassName = 'limehrm.Application'
 jar {
+    duplicatesStrategy(DuplicatesStrategy.INCLUDE)
     manifest {
         attributes (
             'Main-Class': 'limehrm.Application'

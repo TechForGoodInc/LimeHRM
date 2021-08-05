@@ -4,12 +4,16 @@ import io.jsonwebtoken.ExpiredJwtException;
 import limehrm.exceptions.InvalidCredentialsException;
 import limehrm.hibernate.dao.UserDao;
 import limehrm.hibernate.model.User;
-import limehrm.util.AuthUtil;
 import limehrm.util.JwtUtil;
-
 import java.security.PublicKey;
 
 public class JwtRequestFilter {
+    
+    /** 
+     * @param jwtToken
+     * @param publicKey
+     * @return User
+     */
     public static User parseJwtToken(String jwtToken, PublicKey publicKey) {
         try {
              return(JwtUtil.parseToken(jwtToken, publicKey));
@@ -24,6 +28,11 @@ public class JwtRequestFilter {
         return null;
     }
 
+    
+    /** 
+     * @param user
+     * @return Boolean
+     */
     public static Boolean validateUser(User user) {
         // check if emails are the same & not expired
         if (user.getEmail() == null) {
