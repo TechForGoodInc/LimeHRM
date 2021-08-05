@@ -25,6 +25,10 @@ create type limehrm.leave_status as enum ('APPROVE', 'CANCEL', 'REJECT');
 
 create type limehrm.stage as enum ('APPLICATION_RECIEVED', 'PHONE_SCREENING', 'REFERENCE_CHECK', 'JOB_OFFER', 'HIRED', 'REJECTED', 'IN_PERSON_INTERVIEW');
 
+
+create table ROLES (ID INTEGER NOT NULL, "NAME" VARCHAR(255), PRIMARY KEY (ID));
+
+
 create table limehrm.worker (
     id text not null,
     email text
