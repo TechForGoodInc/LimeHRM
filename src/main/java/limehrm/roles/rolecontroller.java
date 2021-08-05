@@ -1,4 +1,4 @@
-import daos.RoleDAO;
+import limehrm.hibernate.dao.RoleDAO;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,5 +1,4 @@
-import daos.RoleDAO;
-import models.Role;
+import limehrm.hibernate.dao.RoleDAO;
 
 import java.util.List;
 
