@@ -1,4 +1,4 @@
-import daos.interfaces.IRoleDAO;
+import limehrm.hibernate.dao.IRoleDAO;
 import java.util.List;
 import models.Role;
 import org.hibernate.HibernateException;
