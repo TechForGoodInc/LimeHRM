@@ -76,6 +76,26 @@ create table limehrm.leave (
     
 );
 
+create table `employeepay` (
+  `id` int(11) NOT NULL,
+  `basicPay` double NOT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `grossPay` double NOT NULL,
+  `hours` int(11) NOT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
+  `netPay` double NOT NULL,
+  `overTimePay` double NOT NULL,
+  `payRate` double NOT NULL,
+  `withHoldingTax` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `empleyadosweldo`
+--
+
+INSERT INTO `employeepay` (`id`, `basicPay`, `firstName`, `grossPay`, `hours`, `lastName`, `netPay`, `overTimePay`, `payRate`, `withHoldingTax`) VALUES
+(1, 982192, 'Jerry', 982192, 34, 'Shuu', 638424.8, 0, 28888, 343767.19999999995);
+
 create table limehrm.recruitment (
     id text not null,
     vacancy text,
