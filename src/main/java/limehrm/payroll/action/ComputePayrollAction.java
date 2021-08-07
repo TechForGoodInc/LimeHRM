@@ -3,8 +3,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.HibernateException;
 
-import edu.ust.ics.payroll.helper.TaxPercentage;
-import edu.ust.ics.payroll.model.EmployeeBean;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
