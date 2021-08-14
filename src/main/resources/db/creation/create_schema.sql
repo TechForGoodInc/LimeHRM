@@ -21,8 +21,17 @@ create type limehrm.marital_status as enum ('SINGLE', 'MARRIED');
 
 create type limehrm.job_status as enum ('ONGOING', 'TERMINATED', 'COMPLETED');
 
+create type limehrm.leave_status as enum ('APPROVE', 'CANCEL', 'REJECT');
+
+create type limehrm.stage as enum ('APPLICATION_RECIEVED', 'PHONE_SCREENING', 'REFERENCE_CHECK', 'JOB_OFFER', 'HIRED', 'REJECTED', 'IN_PERSON_INTERVIEW');
+
+
+create table ROLES (ID INTEGER NOT NULL, "NAME" VARCHAR(255), PRIMARY KEY (ID));
+
+
 create table limehrm.worker (
     id text not null,
+    email text
     first_name text,
     last_name text,
     personal_email text,
@@ -47,10 +56,54 @@ alter table limehrm.worker add primary key(id);
 
 create table limehrm.user (
     email text not null,
-    hashed_password text,
-    id text,
+    password text,
+    userId text,
     google_id text,
     microsoft_id text
 );
 
 alter table limehrm.user add primary key(email);
+
+create table limehrm.leave (
+    email text
+    id text not null,
+    leave_type text,
+    from_date date,
+    to_date date,
+    comment text,
+    leave_status limehrm.leave_status
+
+    
+);
+
+create table `employeepay` (
+  `id` int(11) NOT NULL,
+  `basicPay` double NOT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `grossPay` double NOT NULL,
+  `hours` int(11) NOT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
+  `netPay` double NOT NULL,
+  `overTimePay` double NOT NULL,
+  `payRate` double NOT NULL,
+  `withHoldingTax` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employeepay`
+--
+
+INSERT INTO `employeepay` (`id`, `basicPay`, `firstName`, `grossPay`, `hours`, `lastName`, `netPay`, `overTimePay`, `payRate`, `withHoldingTax`) VALUES
+(1, 982192, 'Jerry', 982192, 34, 'Shuu', 638424.8, 0, 28888, 343767.19999999995);
+
+create table limehrm.recruitment (
+    id text not null,
+    vacancy text,
+    candidate text,
+    email text,
+    contact_Number text,
+    date_applied date,
+    stage limehrm.stage
+
+    
+);

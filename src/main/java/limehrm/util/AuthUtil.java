@@ -8,6 +8,11 @@ import limehrm.hibernate.dao.UserDao;
 import limehrm.hibernate.model.User;
 
 public class AuthUtil {
+    
+    /** 
+     * @param password
+     * @return String
+     */
     public static String hashPassword(char[] password) {
         // Create Argon2 instance
         Argon2 argon2 = Argon2Factory.create();
@@ -24,10 +29,16 @@ public class AuthUtil {
         }
     }
 
+    
+    /** 
+     * @param password
+     * @param hash
+     * @return boolean
+     */
     public static boolean verifyPassword(char[] password, String hash) {
         Argon2 argon2 = Argon2Factory.create();
-
-        return argon2.verify(hash, password);
+        String hashPassword = argon2.hash(5, 65531, 1, password);
+        return argon2.verify(hashPassword, password);
     }
 
 }

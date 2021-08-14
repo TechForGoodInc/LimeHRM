@@ -4,6 +4,7 @@ plugins {
 }
 
 jar {
+    duplicatesStrategy(DuplicatesStrategy.INCLUDE)
     manifest {
         attributes (
             'Main-Class': 'limehrm.Application'

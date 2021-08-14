@@ -13,6 +13,10 @@ import java.util.UUID;
 public class UserDao {
     private static LoggerUtil logger = new LoggerUtil(WorkerDao.class.getSimpleName());
     
+    
+    /** 
+     * @param user
+     */
     public static void saveUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -25,6 +29,10 @@ public class UserDao {
         HibernateUtil.close();
     }
     
+    
+    /** 
+     * @param user
+     */
     public static void updateUser(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -37,6 +45,11 @@ public class UserDao {
         HibernateUtil.close();
     }
     
+    
+    /** 
+     * @param email
+     * @return User
+     */
     public static User getUser(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -51,6 +64,10 @@ public class UserDao {
         return user;
     }
     
+    
+    /** 
+     * @return List<User>
+     */
     public static List<User> getAllUsers() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         
@@ -69,6 +86,10 @@ public class UserDao {
         return user;
     }
     
+    
+    /** 
+     * @param email
+     */
     public static void deleteUser(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         
